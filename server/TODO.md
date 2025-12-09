@@ -6,7 +6,7 @@
 3. 공통 도메인 타입 정의: `internal/pkg/domain`에 ID/Name/Alias/Coordination/Property 타입, 검증 태그 포함 — git: `feat(domain): add core value objects and validation tags`
 4. 엔티티 스키마 모델링: Component, DataSource, DataSourceClass, Query, TableData 등 struct 정의 및 JSON 태깅 — git: `feat(domain): model entities for components and datasources`
 5. SQLite3 GORM 설정 및 마이그레이션 파이프라인 추가 (auto-migrate 또는 명시적 migration) — git: `feat(storage): configure sqlite gorm and migrations`
-6. Repository 계층 구현: Component, DataSource, DataSourceClass CRUD + UpdatedAt 기반 last-write-wins 정책 반영 — git: `feat(repo): implement repositories with last-write-wins`
+6. Repository 계층 구현: Component, DataSource CRUD + UpdatedAt 기반 last-write-wins 정책 반영 — git: `feat(repo): implement repositories with last-write-wins`
 7. Service 계층 구현: 비즈니스 로직/검증/에러 매핑 (BadRequest/NotFound/ErrorResponse) — git: `feat(service): add service layer with validation and errors`
 8. HTTP 핸들러 - Components: `GET /components`, `GET /components/:id`, `GET /components/:id/data`, `POST`, `PATCH`, `DELETE` — git: `feat(api): add component handlers`
 9. HTTP 핸들러 - DataSources: `GET /data-sources`, `GET /data-sources/:id`, `POST`, `PATCH`, `DELETE` — git: `feat(api): add datasource handlers`

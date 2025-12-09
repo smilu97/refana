@@ -18,7 +18,7 @@ func TestMigrateCreatesTables(t *testing.T) {
 		t.Fatalf("Migrate error: %v", err)
 	}
 
-	expectTables(t, db, "components", "data_sources", "data_source_classes")
+	expectTables(t, db, "components", "data_sources")
 }
 
 func TestMigrateIsIdempotent(t *testing.T) {
