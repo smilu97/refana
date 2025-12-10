@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/rushysloth/go-tsid"
+
 // Common value objects and descriptors used across the server.
 // Validation tags follow the specification document.
 
@@ -21,9 +23,27 @@ type Coordination struct {
 }
 
 // IDs
-type GeneratedID string
-type ComponentID GeneratedID
-type DataSourceID GeneratedID
+type GeneratedID struct{ tsid tsid.Tsid }
+
+func NewGeneratedID(v int64) GeneratedID {
+	return GeneratedID{tsid: *tsid.FromNumber(v)}
+}
+
+func (id GeneratedID) Int64() int64 {
+	return id.tsid.ToNumber()
+}
+
+type ComponentID struct{ GeneratedID }
+
+func NewComponentID(v int64) ComponentID {
+	return ComponentID{GeneratedID: NewGeneratedID(v)}
+}
+
+type DataSourceID struct{ GeneratedID }
+
+func NewDataSourceID(v int64) DataSourceID {
+	return DataSourceID{GeneratedID: NewGeneratedID(v)}
+}
 
 type DesignatedID string
 type VisualisationID DesignatedID

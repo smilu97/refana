@@ -13,13 +13,13 @@ import (
 func TestQueryShape(t *testing.T) {
 	qt := reflect.TypeOf(domain.Query{})
 	expectType(t, qt, "Name", typeOf(domain.Name("")))
-	expectType(t, qt, "DataSourceID", typeOf(domain.DataSourceID("")))
+	expectType(t, qt, "DataSourceID", typeOf(domain.DataSourceID{}))
 	expectType(t, qt, "Properties", typeOf(map[domain.PropertyKey]domain.PropertyValue{}))
 }
 
 func TestComponentShape(t *testing.T) {
 	ct := reflect.TypeOf(domain.Component{})
-	expectType(t, ct, "ID", typeOf(domain.ComponentID("")))
+	expectType(t, ct, "ID", typeOf(domain.ComponentID{}))
 	expectType(t, ct, "VisualisationID", typeOf(domain.VisualisationID("")))
 	expectType(t, ct, "Query", typeOf(domain.Query{}))
 	expectType(t, ct, "Name", typeOf(domain.Name("")))
@@ -60,7 +60,7 @@ func TestTableDataShape(t *testing.T) {
 
 func TestDataSourceShape(t *testing.T) {
 	dt := reflect.TypeOf(domain.DataSource{})
-	expectType(t, dt, "ID", typeOf(domain.DataSourceID("")))
+	expectType(t, dt, "ID", typeOf(domain.DataSourceID{}))
 	expectType(t, dt, "ClassID", typeOf(domain.DataSourceClassID("")))
 	expectType(t, dt, "Name", typeOf(domain.Name("")))
 	expectType(t, dt, "Alias", typeOf(domain.Alias("")))
