@@ -65,6 +65,7 @@ func TestDataSourceShape(t *testing.T) {
 	expectType(t, dt, "Name", typeOf(domain.Name("")))
 	expectType(t, dt, "Alias", typeOf(domain.Alias("")))
 	expectType(t, dt, "Properties", typeOf(map[domain.PropertyKey]domain.PropertyValue{}))
+	expectType(t, dt, "UpdatedAt", typeOf(time.Time{}))
 }
 
 func TestCreateDataSourceOptionsShape(t *testing.T) {

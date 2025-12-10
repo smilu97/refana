@@ -54,6 +54,7 @@ type DataSource struct {
 	Name       Name                          `json:"name"`
 	Alias      Alias                         `json:"alias"`
 	Properties map[PropertyKey]PropertyValue `json:"properties"`
+	UpdatedAt  time.Time                     `json:"updatedAt"`
 }
 
 type CreateDataSourceOptions struct {

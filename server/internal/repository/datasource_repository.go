@@ -19,8 +19,11 @@ func NewDataSourceRepository(db *gorm.DB) *DataSourceRepository {
 }
 
 func (r *DataSourceRepository) Create(ctx context.Context, ds domain.DataSource) error {
+	if ds.UpdatedAt.IsZero() {
+		ds.UpdatedAt = time.Now()
+	}
 	var model dataSourceModel
-	if err := toDataSourceModel(ds, time.Now(), &model); err != nil {
+	if err := toDataSourceModel(ds, &model); err != nil {
 		return err
 	}
 	return r.db.WithContext(ctx).Create(&model).Error
@@ -45,8 +48,9 @@ func (r *DataSourceRepository) Update(ctx context.Context, ds domain.DataSource,
 			return nil
 		}
 
+		ds.UpdatedAt = updatedAt
 		var model dataSourceModel
-		if err := toDataSourceModel(ds, updatedAt, &model); err != nil {
+		if err := toDataSourceModel(ds, &model); err != nil {
 			return err
 		}
 		return tx.Model(&existing).Updates(model).Error
@@ -86,7 +90,7 @@ type dataSourceModel struct {
 
 func (dataSourceModel) TableName() string { return "data_sources" }
 
-func toDataSourceModel(src domain.DataSource, updatedAt time.Time, dst *dataSourceModel) error {
+func toDataSourceModel(src domain.DataSource, dst *dataSourceModel) error {
 	props, err := json.Marshal(src.Properties)
 	if err != nil {
 		return err
@@ -96,7 +100,7 @@ func toDataSourceModel(src domain.DataSource, updatedAt time.Time, dst *dataSour
 	dst.Name = string(src.Name)
 	dst.Alias = string(src.Alias)
 	dst.PropertiesJSON = string(props)
-	dst.UpdatedAt = updatedAt
+	dst.UpdatedAt = src.UpdatedAt
 	return nil
 }
 
@@ -111,5 +115,6 @@ func toDataSourceDomain(m dataSourceModel) (domain.DataSource, error) {
 		Name:       domain.Name(m.Name),
 		Alias:      domain.Alias(m.Alias),
 		Properties: props,
+		UpdatedAt:  m.UpdatedAt,
 	}, nil
 }
